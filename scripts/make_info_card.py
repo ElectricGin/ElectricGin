@@ -18,10 +18,13 @@ ROWS = [
     ("", "email digest agent, PAROL6 robot arm"),
 ]
 
-WIDTH = 490
+FONT_SIZE = 14
+CHAR_WIDTH = FONT_SIZE * 0.62  # monospace advance width estimate, kept generous on purpose
 LINE_HEIGHT = 26
 TOP_PAD = 46
 LEFT_PAD = 22
+RIGHT_PAD = 20
+CONT_INDENT = 78  # x-offset for continuation lines (blank key)
 KEY_COLOR = "#39d353"
 VAL_COLOR = "#c9d1d9"
 BG = "#0d1117"
@@ -29,21 +32,33 @@ BORDER = "#30363d"
 TITLEBAR = "#161b22"
 
 
+def line_width_chars(key, val):
+    if key:
+        return len(key) + 2 + len(val)  # "Key: value"
+    return (CONT_INDENT - LEFT_PAD) / CHAR_WIDTH + len(val)
+
+
 def main():
+    longest_chars = max(line_width_chars(k, v) for k, v in ROWS)
+    title_chars = len(TITLE) + len(" — neofetch") + 4  # padding around centered title
+    content_width = LEFT_PAD + longest_chars * CHAR_WIDTH + RIGHT_PAD
+    title_width = title_chars * (12 * 0.62) + 2 * LEFT_PAD
+    width = round(max(460, content_width, title_width))
     height = TOP_PAD + len(ROWS) * LINE_HEIGHT + 20
 
     parts = []
     parts.append(
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" '
-        f'viewBox="0 0 {WIDTH} {height}" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+        f'viewBox="0 0 {width} {height}" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">'
     )
-    parts.append(f'<rect width="{WIDTH}" height="{height}" rx="8" fill="{BG}" stroke="{BORDER}"/>')
-    parts.append(f'<rect width="{WIDTH}" height="28" rx="8" fill="{TITLEBAR}"/>')
-    parts.append(f'<rect y="14" width="{WIDTH}" height="14" fill="{TITLEBAR}"/>')
-    for i, color in enumerate(["#ff5f56", "#ffbd2e", "#27c93f"]):
-        parts.append(f'<circle cx="{16 + i * 16}" cy="14" r="5" fill="{color}"/>')
+    parts.append(f'<rect width="{width}" height="{height}" rx="8" fill="{BG}" stroke="{BORDER}"/>')
+    parts.append(f'<rect width="{width}" height="28" rx="8" fill="{TITLEBAR}"/>')
+    parts.append(f'<rect y="14" width="{width}" height="14" fill="{TITLEBAR}"/>')
+    # OS-neutral window-chrome dots (no macOS-style traffic-light coloring)
+    for i in range(3):
+        parts.append(f'<circle cx="{16 + i * 14}" cy="14" r="3.5" fill="#484f58"/>')
     parts.append(
-        f'<text x="{WIDTH / 2}" y="18" text-anchor="middle" fill="#8b949e" font-size="12">'
+        f'<text x="{width / 2}" y="18" text-anchor="middle" fill="#8b949e" font-size="12">'
         f'{TITLE} &#8212; neofetch</text>'
     )
 
@@ -60,13 +75,13 @@ def main():
         cls = "" if STATIC else 'class="line" style="animation-delay:%.2fs"' % (i * 0.15)
         if key:
             parts.append(
-                f'<text x="{LEFT_PAD}" y="{y}" {cls}>'
+                f'<text x="{LEFT_PAD}" y="{y}" {cls} font-size="{FONT_SIZE}">'
                 f'<tspan fill="{KEY_COLOR}" font-weight="bold">{key}</tspan>'
                 f'<tspan fill="{VAL_COLOR}">: {val}</tspan></text>'
             )
         else:
             parts.append(
-                f'<text x="{LEFT_PAD + 78}" y="{y}" {cls} fill="{VAL_COLOR}">{val}</text>'
+                f'<text x="{CONT_INDENT}" y="{y}" {cls} font-size="{FONT_SIZE}" fill="{VAL_COLOR}">{val}</text>'
             )
 
     parts.append('</svg>')
@@ -75,7 +90,7 @@ def main():
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         f.write("\n".join(parts))
 
-    print(f"wrote {OUT_PATH}")
+    print(f"wrote {OUT_PATH} ({width}x{height})")
 
 
 if __name__ == "__main__":

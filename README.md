@@ -6,6 +6,6 @@
 <br><br>
 
 <h3><code>electricgin@github ~ $ whoami</code></h3>
-<img src="./info-card.svg" width="490" />
+<img src="./info-card.svg" width="511" />
 
 </div>
