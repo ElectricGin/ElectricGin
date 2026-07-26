@@ -12,7 +12,6 @@ STATIC = os.environ.get("STATIC") == "1"
 TITLE = "ElectricGin@github"
 
 ROWS = [
-    ("Role", "Student / TBC Officer"),
     ("Now", "SAT prep, robotics + CS projects"),
     ("Stack", "Python, JavaScript, Git, Obsidian + Claude Code"),
     ("Highlights", "Quant backtester, self-hosted MC server,"),
