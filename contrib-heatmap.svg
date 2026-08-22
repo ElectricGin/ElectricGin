@@ -370,7 +370,7 @@
 <rect class="cell" x="756" y="58" width="11" height="11" rx="2" fill="#0e4429" style="animation-delay:0.432s"><title>2026-08-18: level 1</title></rect>
 <rect class="cell" x="756" y="72" width="11" height="11" rx="2" fill="#0e4429" style="animation-delay:0.440s"><title>2026-08-19: level 1</title></rect>
 <rect class="cell" x="756" y="86" width="11" height="11" rx="2" fill="#0e4429" style="animation-delay:0.448s"><title>2026-08-20: level 1</title></rect>
-<rect class="cell" x="756" y="100" width="11" height="11" rx="2" fill="#161b22" style="animation-delay:0.456s"><title>2026-08-21: level 0</title></rect>
+<rect class="cell" x="756" y="100" width="11" height="11" rx="2" fill="#0e4429" style="animation-delay:0.456s"><title>2026-08-21: level 1</title></rect>
 <rect class="cell" x="756" y="114" width="11" height="11" rx="2" fill="#161b22" style="animation-delay:0.464s"><title>2026-08-22: level 0</title></rect>
 <text x="28" y="146" fill="#8b949e" font-size="11">Less</text>
 <rect x="66" y="136" width="11" height="11" rx="2" fill="#161b22"/>
@@ -380,5 +380,5 @@
 <rect x="122" y="136" width="11" height="11" rx="2" fill="#39d353"/>
 <rect x="136" y="136" width="11" height="11" rx="2" fill="#69f0a0"/>
 <text x="154" y="146" fill="#8b949e" font-size="11">More</text>
-<text x="28" y="166" fill="#c9d1d9" font-size="12">33 contributions in the last year &#183; current streak 0d &#183; longest streak 26d</text>
+<text x="28" y="166" fill="#c9d1d9" font-size="12">34 contributions in the last year &#183; current streak 0d &#183; longest streak 27d</text>
 </svg>
